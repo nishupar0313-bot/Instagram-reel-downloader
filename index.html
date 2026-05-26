@@ -1,0 +1,144 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Download public Instagram reels and videos quickly with ReelAGP.">
+    <title>ReelAGP - Instagram Reel Downloader</title>
+    <link rel="stylesheet" href="styles.css">
+  </head>
+  <script src="https://pl29558620.effectivecpmnetwork.com/85/91/1c/85911cd50d5f63dff005180ee6e602bc.js"></script> 
+  
+  <body>
+    <header class="topbar">
+      <a class="brand" href="#" aria-label="ReelAGP home">
+        <span class="brand-mark">AGP</span>
+        <span>ReelAGP</span>
+      </a>
+      <nav class="nav-links" aria-label="Main navigation">
+        <a href="#download">Download</a>
+        <a href="#features">Features</a>
+        <a href="#faq">FAQ</a>
+      </nav>
+    </header>
+
+    <main>
+      <section class="hero" id="download">
+        <div class="hero-copy">
+          <p class="eyebrow">Public Instagram downloader</p>
+          <h1>Reels save karo, bina extra steps ke.</h1>
+          <p class="hero-text">
+            Instagram ka public reel link paste karo aur MP4 file download-ready pao.
+            Private accounts, login-protected stories, ya copyrighted content supported nahi hai.
+          </p>
+          <div class="trust-row" aria-label="Highlights">
+            <span>Real MP4</span>
+            <span>Fast API</span>
+            <span>Phone ready</span>
+          </div>
+        </div>
+
+        <form class="download-panel" id="downloadForm">
+          <div class="panel-heading">
+            <p class="eyebrow">Download box</p>
+            <h2>Paste. Fetch. Save.</h2>
+          </div>
+          <div class="mode-tabs" role="tablist" aria-label="Download type">
+            <button class="mode-tab active" type="button" data-mode="reel" aria-pressed="true">Reel</button>
+            <button class="mode-tab" type="button" data-mode="story" aria-pressed="false">Story</button>
+            <button class="mode-tab" type="button" data-mode="post" aria-pressed="false">Post</button>
+          </div>
+
+          <label class="field-label" for="instagramUrl">Instagram public link</label>
+          <div class="input-row">
+            <input id="instagramUrl" name="instagramUrl" type="url" placeholder="https://www.instagram.com/reel/..." autocomplete="off" required>
+            <button class="paste-button" type="button" id="pasteButton" aria-label="Paste link" title="Paste link">
+              <svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none">
+                <path d="M9 5h6M9 3h6a2 2 0 0 1 2 2v1h1a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h1V5a2 2 0 0 1 2-2Z" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+              </svg>
+            </button>
+          </div>
+
+          <div class="quality-row" aria-label="Quality">
+            <label><input type="radio" name="quality" value="hd" checked> HD</label>
+            <label><input type="radio" name="quality" value="sd"> SD</label>
+            <label><input type="radio" name="quality" value="audio"> Audio</label>
+          </div>
+
+          <button class="primary-button" type="submit" id="downloadButton">
+            <span>Fetch media</span>
+            <svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none">
+              <path d="M12 4v10m0 0 4-4m-4 4-4-4M5 20h14" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </button>
+
+          <p class="helper-text" id="statusText">Public reel link paste karein, phir Fetch media dabayein.</p>
+        </form>
+      </section>
+
+      <section class="result-section" aria-live="polite">
+        <div class="result-card hidden" id="resultCard">
+          <div class="preview">
+            <div class="phone-frame">
+              <div class="phone-top"></div>
+              <div class="preview-art">
+                <span id="previewType">REEL</span>
+              </div>
+            </div>
+          </div>
+          <div class="result-copy">
+            <p class="eyebrow">Media ready</p>
+            <h2 id="resultTitle">Your media is ready</h2>
+            <p id="resultMeta">Choose a file quality and save it to your device.</p>
+            <div class="result-actions">
+              <a class="secondary-button" id="downloadLink" href="#" download>Save MP4</a>
+              <button class="ghost-button" type="button" id="resetButton">Try another</button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="feature-band" id="features">
+        <div>
+          <p class="eyebrow">Clean workflow</p>
+          <h2>Downloader jo simple bhi hai aur clear bhi.</h2>
+        </div>
+        <div class="features-grid">
+          <article>
+            <span class="icon-dot">1</span>
+            <h3>Paste link</h3>
+            <p>Instagram reel ya public post ka URL input box me paste karo.</p>
+          </article>
+          <article>
+            <span class="icon-dot">2</span>
+            <h3>Fetch media</h3>
+            <p>Backend API media details resolve karke local download link banata hai.</p>
+          </article>
+          <article>
+            <span class="icon-dot">3</span>
+            <h3>Save file</h3>
+            <p>MP4 file apne device me normal download ki tarah save karo.</p>
+          </article>
+        </div>
+      </section>
+
+      <section class="faq" id="faq">
+        <h2>Common questions</h2>
+        <details>
+          <summary>Kya ye private account stories download karega?</summary>
+          <p>Nahi. Ye website sirf public, accessible content ke liye design ki gayi hai.</p>
+        </details>
+        <details>
+          <summary>Real download ke liye kya chahiye?</summary>
+          <p>Server-side API chahiye jo Instagram URL resolve kare, media URL nikale, aur legal/compliance rules follow kare.</p>
+        </details>
+        <details>
+          <summary>Kya direct browser se Instagram media fetch ho sakta hai?</summary>
+          <p>Usually nahi, kyunki CORS, login restrictions, aur platform rules apply hote hain.</p>
+        </details>
+      </section>
+    </main>
+
+    <script src="script.js"></script>
+  </body>
+</html>
