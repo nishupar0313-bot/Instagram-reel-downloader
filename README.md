@@ -1,0 +1,69 @@
+# ReelAGP
+
+ReelAGP is a public Instagram reel downloader built with a static frontend and a lightweight Node.js backend.
+
+## Run Locally
+
+1. Create `config.json` from `config.example.json`.
+2. Add your RapidAPI details.
+3. Start the server:
+
+```bash
+npm start
+```
+
+Open:
+
+```txt
+http://127.0.0.1:5500/
+```
+
+## Environment Variables
+
+For hosting, do not upload `config.json`. Set these variables in your hosting dashboard:
+
+```txt
+IG_PROVIDER_URL=https://instagram-reels-downloader-api.p.rapidapi.com/download
+IG_PROVIDER_HOST=instagram-reels-downloader-api.p.rapidapi.com
+IG_PROVIDER_KEY=your_rapidapi_key
+IG_PROVIDER_METHOD=GET
+IG_PROVIDER_REQUEST_STYLE=query
+IG_PROVIDER_URL_PARAM=url
+```
+
+## Ads And Monetization
+
+The site now includes ad placements on the homepage, legal pages for ad network review, and dynamic `/ads.txt` support.
+
+After your AdSense account is approved, add these Render environment variables:
+
+```txt
+ADSENSE_CLIENT=ca-pub-your_google_client_id
+ADSENSE_PUBLISHER_ID=pub-your_google_publisher_id
+ADSENSE_SLOT_TOP=your_top_ad_unit_slot
+ADSENSE_SLOT_AFTER_DOWNLOAD=your_after_download_ad_unit_slot
+ADSENSE_SLOT_BEFORE_FAQ=your_before_faq_ad_unit_slot
+ADSENSE_SLOT_BOTTOM=your_mobile_bottom_ad_unit_slot
+```
+
+Until real values are added, the page shows clean ad placeholders and does not load Google ad scripts.
+
+## Render Deploy
+
+1. Upload this project to GitHub.
+2. Create a new Render **Web Service**.
+3. Connect your GitHub repository.
+4. Use these settings:
+
+```txt
+Runtime: Node
+Build Command: npm install
+Start Command: npm start
+```
+
+5. Add the environment variables listed above.
+6. Deploy.
+
+## Important
+
+Only use this for public content you own or have permission to download. Keep API keys private.

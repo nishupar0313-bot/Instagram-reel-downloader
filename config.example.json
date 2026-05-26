@@ -1,0 +1,16 @@
+{
+  "providerUrl": "https://example-instagram-downloader.p.rapidapi.com/download",
+  "providerHost": "example-instagram-downloader.p.rapidapi.com",
+  "providerKey": "paste-your-rapidapi-key-here",
+  "providerMethod": "POST",
+  "requestStyle": "jsonBody",
+  "urlParam": "url",
+  "adsenseClient": "ca-pub-0000000000000000",
+  "adsensePublisherId": "pub-0000000000000000",
+  "adsenseSlots": {
+    "top": "1111111111",
+    "afterDownload": "2222222222",
+    "beforeFaq": "3333333333",
+    "bottom": "4444444444"
+  }
+}

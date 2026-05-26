@@ -1,0 +1,19 @@
+Copy these into Render > Environment.
+
+IG_PROVIDER_URL
+https://instagram-reels-downloader-api.p.rapidapi.com/download
+
+IG_PROVIDER_HOST
+instagram-reels-downloader-api.p.rapidapi.com
+
+IG_PROVIDER_METHOD
+GET
+
+IG_PROVIDER_REQUEST_STYLE
+query
+
+IG_PROVIDER_URL_PARAM
+url
+
+IG_PROVIDER_KEY
+Paste the full providerKey from config.json here. Do not add quotes, spaces, or backslashes.

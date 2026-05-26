@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="540" height="960" viewBox="0 0 540 960" role="img" aria-label="Colorful social video preview">
+  <defs>
+    <linearGradient id="bg" x1="54" y1="56" x2="486" y2="904" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#f04475"/>
+      <stop offset=".48" stop-color="#6843dc"/>
+      <stop offset="1" stop-color="#12a394"/>
+    </linearGradient>
+    <linearGradient id="sun" x1="102" y1="230" x2="438" y2="690" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#ffcf68"/>
+      <stop offset="1" stop-color="#f04475"/>
+    </linearGradient>
+  </defs>
+  <rect width="540" height="960" fill="url(#bg)"/>
+  <circle cx="410" cy="146" r="86" fill="#ffcf68" opacity=".9"/>
+  <path d="M0 666c78-61 150-92 217-91 76 1 129 48 203 47 47-1 86-21 120-49v387H0V666Z" fill="#17151f" opacity=".38"/>
+  <path d="M0 726c78-51 153-78 223-79 83-1 139 39 213 38 39 0 74-13 104-35v310H0V726Z" fill="#17151f" opacity=".38"/>
+  <rect x="58" y="56" width="168" height="16" rx="8" fill="#fff" opacity=".7"/>
+  <rect x="58" y="88" width="112" height="12" rx="6" fill="#fff" opacity=".44"/>
+  <rect x="402" y="692" width="60" height="60" rx="30" fill="#fff" opacity=".85"/>
+  <path d="M426 712v20l17-10-17-10Z" fill="#17151f"/>
+  <rect x="58" y="790" width="274" height="18" rx="9" fill="#fff" opacity=".82"/>
+  <rect x="58" y="826" width="204" height="14" rx="7" fill="#fff" opacity=".5"/>
+</svg>
