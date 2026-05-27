@@ -28,6 +28,8 @@ function hasRealAdSlot(slot) {
 }
 
 function loadAdSense() {
+  if (document.querySelector(`script[src*="adsbygoogle.js?client=${ADSENSE_CLIENT}"]`)) return;
+
   const script = document.createElement("script");
   script.async = true;
   script.crossOrigin = "anonymous";
