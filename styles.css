@@ -329,6 +329,11 @@ textarea:focus {
   padding: 0 1.1rem;
 }
 
+.secondary-button.disabled {
+  pointer-events: none;
+  opacity: 0.55;
+}
+
 .ghost-button {
   padding: 0 1.1rem;
   color: var(--ink);

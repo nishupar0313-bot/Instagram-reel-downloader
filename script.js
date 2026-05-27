@@ -6,6 +6,7 @@ const resultTitle = document.querySelector("#resultTitle");
 const resultMeta = document.querySelector("#resultMeta");
 const previewType = document.querySelector("#previewType");
 const downloadLink = document.querySelector("#downloadLink");
+const backupLink = document.querySelector("#backupLink");
 const resetButton = document.querySelector("#resetButton");
 const pasteButton = document.querySelector("#pasteButton");
 const tabs = [...document.querySelectorAll(".mode-tab")];
@@ -86,14 +87,16 @@ form.addEventListener("submit", async (event) => {
     showResult({
       title: data.title || `${modeLabels[selectedMode]} download ready`,
       meta: data.meta || `${quality.toUpperCase()} file prepared from public media.`,
-      href: data.downloadUrl || "#"
+      href: data.downloadUrl || "#",
+      fallbackUrl: ""
     });
     setStatus(data.mode === "demo" ? "Backend connected. Demo media response received." : "Media ready. Save MP4 dabayein.");
   } catch (error) {
     showResult({
       title: `${modeLabels[selectedMode]} download not ready`,
       meta: error.message || `Real ${quality.toUpperCase()} download ke liye backend API configure karein.`,
-      href: "#"
+      href: "#",
+      fallbackUrl: "https://warpdl.io/"
     });
     setStatus(error.message || "Real download ke liye backend API connect karein.", true);
   }
@@ -102,11 +105,12 @@ form.addEventListener("submit", async (event) => {
 resetButton.addEventListener("click", () => {
   input.value = "";
   resultCard.classList.add("hidden");
+  backupLink.classList.add("hidden");
   setStatus("Naya Instagram link paste karein.");
   input.focus();
 });
 
-function showResult({ title, meta, href }) {
+function showResult({ title, meta, href, fallbackUrl }) {
   previewType.textContent = selectedMode.toUpperCase();
   resultTitle.textContent = title;
   resultMeta.textContent = meta;
@@ -115,6 +119,8 @@ function showResult({ title, meta, href }) {
   downloadLink.toggleAttribute("download", hasDownload);
   downloadLink.classList.toggle("disabled", !hasDownload);
   downloadLink.setAttribute("aria-disabled", String(!hasDownload));
+  backupLink.href = fallbackUrl || "#";
+  backupLink.classList.toggle("hidden", !fallbackUrl);
   resultCard.classList.remove("hidden");
   resultCard.scrollIntoView({ behavior: "smooth", block: "center" });
 }

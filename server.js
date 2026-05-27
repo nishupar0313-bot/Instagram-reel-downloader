@@ -8,6 +8,8 @@ const PUBLIC_DIR = __dirname;
 const CONFIG_PATH = path.join(__dirname, "config.json");
 
 const config = loadConfig();
+const downloadCache = new Map();
+let quotaCooldownUntil = 0;
 
 const mimeTypes = {
   ".html": "text/html; charset=utf-8",
@@ -282,13 +284,28 @@ async function requestProvider(provider, { parsed, requestedType, quality }) {
 }
 
 async function resolveWithProvider({ parsed, requestedType, quality }) {
+  const cacheKey = `${parsed.cleanUrl}|${requestedType}|${quality}`;
+  const cached = downloadCache.get(cacheKey);
+  if (cached && cached.expiresAt > Date.now()) {
+    return cached.value;
+  }
+
+  if (quotaCooldownUntil > Date.now()) {
+    throw new Error("Free monthly API quota abhi khatam hai. Kuch time baad try karein ya Free backup option use karein.");
+  }
+
   const providers = getProviderConfigs();
   if (!providers.length) return null;
 
   const errors = [];
   for (const provider of providers) {
     try {
-      return await requestProvider(provider, { parsed, requestedType, quality });
+      const result = await requestProvider(provider, { parsed, requestedType, quality });
+      downloadCache.set(cacheKey, {
+        value: result,
+        expiresAt: Date.now() + 60 * 60 * 1000
+      });
+      return result;
     } catch (error) {
       errors.push(error.message || "Provider request failed");
     }
@@ -296,7 +313,8 @@ async function resolveWithProvider({ parsed, requestedType, quality }) {
 
   const quotaError = errors.find((message) => /quota|monthly|limit|exceeded/i.test(message));
   if (quotaError) {
-    throw new Error("Monthly API quota khatam ho gaya hai. RapidAPI plan upgrade karein ya Render me backup provider key add karein.");
+    quotaCooldownUntil = Date.now() + 30 * 60 * 1000;
+    throw new Error("Free monthly API quota khatam ho gaya hai. Free backup option use karein ya quota reset hone ka wait karein.");
   }
 
   throw new Error(errors[errors.length - 1] || "Provider request failed");
