@@ -111,7 +111,10 @@ function showResult({ title, meta, href }) {
   resultTitle.textContent = title;
   resultMeta.textContent = meta;
   downloadLink.href = href;
-  downloadLink.toggleAttribute("download", href !== "#");
+  const hasDownload = href && href !== "#";
+  downloadLink.toggleAttribute("download", hasDownload);
+  downloadLink.classList.toggle("disabled", !hasDownload);
+  downloadLink.setAttribute("aria-disabled", String(!hasDownload));
   resultCard.classList.remove("hidden");
   resultCard.scrollIntoView({ behavior: "smooth", block: "center" });
 }

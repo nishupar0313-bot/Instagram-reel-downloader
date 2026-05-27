@@ -105,6 +105,7 @@ function parseInstagramUrl(value) {
 
 function getProviderConfig() {
   return {
+    name: "primary",
     url: process.env.IG_PROVIDER_URL || process.env.PROVIDER_URL || config.providerUrl,
     apiKey:
       process.env.IG_PROVIDER_KEY ||
@@ -119,6 +120,27 @@ function getProviderConfig() {
   };
 }
 
+function getBackupProviderConfig(index) {
+  const prefix = `IG_PROVIDER_${index}_`;
+  return {
+    name: `backup-${index}`,
+    url: process.env[`${prefix}URL`],
+    apiKey: process.env[`${prefix}KEY`],
+    host: process.env[`${prefix}HOST`],
+    method: process.env[`${prefix}METHOD`] || "GET",
+    requestStyle: process.env[`${prefix}REQUEST_STYLE`] || "query",
+    urlParam: process.env[`${prefix}URL_PARAM`] || "url"
+  };
+}
+
+function getProviderConfigs() {
+  return [
+    getProviderConfig(),
+    getBackupProviderConfig(2),
+    getBackupProviderConfig(3)
+  ].filter((provider) => provider.url && provider.host && provider.apiKey);
+}
+
 function maskSecret(value) {
   if (!value) return "";
   const text = String(value);
@@ -127,11 +149,13 @@ function maskSecret(value) {
 }
 
 function handleHealth(req, res) {
-  const provider = getProviderConfig();
+  const providers = getProviderConfigs();
+  const provider = providers[0] || getProviderConfig();
   sendJson(res, 200, {
     ok: true,
     app: "ReelAGP",
-    providerConfigured: Boolean(provider.url && provider.host && provider.apiKey),
+    providerConfigured: providers.length > 0,
+    providerCount: providers.length,
     providerUrl: provider.url || "",
     providerHost: provider.host || "",
     providerKey: maskSecret(provider.apiKey),
@@ -196,12 +220,7 @@ function handleAdsTxt(req, res) {
   sendText(res, 200, `google.com, ${publisher}, DIRECT, f08c47fec0942fa0\n`);
 }
 
-async function resolveWithProvider({ parsed, requestedType, quality }) {
-  const provider = getProviderConfig();
-  if (!provider.url) {
-    return null;
-  }
-
+async function requestProvider(provider, { parsed, requestedType, quality }) {
   const headers = {
     "Content-Type": "application/json"
   };
@@ -237,7 +256,11 @@ async function resolveWithProvider({ parsed, requestedType, quality }) {
 
   const data = await providerResponse.json().catch(() => ({}));
   if (!providerResponse.ok) {
-    throw new Error(data.error || data.message || "Provider request failed");
+    const message = data.error || data.message || "Provider request failed";
+    const error = new Error(message);
+    error.providerName = provider.name;
+    error.statusCode = providerResponse.status;
+    throw error;
   }
 
   const downloadUrl = pickDownloadUrl(data, parsed.cleanUrl, quality);
@@ -256,6 +279,27 @@ async function resolveWithProvider({ parsed, requestedType, quality }) {
     directUrl: downloadUrl,
     fileName: data.fileName || `instasave-${requestedType}-${quality}.mp4`
   };
+}
+
+async function resolveWithProvider({ parsed, requestedType, quality }) {
+  const providers = getProviderConfigs();
+  if (!providers.length) return null;
+
+  const errors = [];
+  for (const provider of providers) {
+    try {
+      return await requestProvider(provider, { parsed, requestedType, quality });
+    } catch (error) {
+      errors.push(error.message || "Provider request failed");
+    }
+  }
+
+  const quotaError = errors.find((message) => /quota|monthly|limit|exceeded/i.test(message));
+  if (quotaError) {
+    throw new Error("Monthly API quota khatam ho gaya hai. RapidAPI plan upgrade karein ya Render me backup provider key add karein.");
+  }
+
+  throw new Error(errors[errors.length - 1] || "Provider request failed");
 }
 
 function pickDownloadUrl(data, sourceUrl, quality) {

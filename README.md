@@ -31,6 +31,17 @@ IG_PROVIDER_REQUEST_STYLE=query
 IG_PROVIDER_URL_PARAM=url
 ```
 
+Optional backup providers can be added with the same shape. The app tries them in order when the main provider fails:
+
+```txt
+IG_PROVIDER_2_URL=https://another-provider.p.rapidapi.com/download
+IG_PROVIDER_2_HOST=another-provider.p.rapidapi.com
+IG_PROVIDER_2_KEY=your_backup_key
+IG_PROVIDER_2_METHOD=GET
+IG_PROVIDER_2_REQUEST_STYLE=query
+IG_PROVIDER_2_URL_PARAM=url
+```
+
 ## Ads And Monetization
 
 The site now includes ad placements on the homepage, legal pages for ad network review, and dynamic `/ads.txt` support.
