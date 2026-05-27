@@ -5,12 +5,13 @@
   "providerMethod": "POST",
   "requestStyle": "jsonBody",
   "urlParam": "url",
-  "adsenseClient": "ca-pub-0000000000000000",
-  "adsensePublisherId": "pub-0000000000000000",
+  "adsenseClient": "ca-pub-3466103859143604",
+  "adsensePublisherId": "pub-3466103859143604",
   "adsenseSlots": {
     "top": "1111111111",
     "afterDownload": "2222222222",
     "beforeFaq": "3333333333",
     "bottom": "4444444444"
-  }
+  },
+  "contactEmail": "contact@reelagp.onrender.com"
 }

@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="Contact ReelAGP for support, privacy, and copyright questions.">
     <meta name="robots" content="index, follow">
+    <link rel="canonical" href="https://reelagp.onrender.com/contact.html">
     <title>Contact - ReelAGP</title>
     <link rel="stylesheet" href="styles.css">
     <script src="ad-config.js"></script>
@@ -19,6 +20,7 @@
       <nav class="nav-links" aria-label="Main navigation">
         <a href="index.html#download">Download</a>
         <a href="index.html#faq">FAQ</a>
+        <a href="about.html">About</a>
         <a href="privacy.html">Privacy</a>
       </nav>
     </header>
@@ -29,6 +31,35 @@
         <p>For support, privacy questions, advertising, or copyright requests, contact the ReelAGP owner.</p>
         <p>Email: <a href="mailto:contact@reelagp.onrender.com">contact@reelagp.onrender.com</a></p>
       </div>
+      <form class="contact-form" id="contactForm">
+        <label>
+          Name
+          <input type="text" name="name" autocomplete="name" required>
+        </label>
+        <label>
+          Your email
+          <input type="email" name="email" autocomplete="email" required>
+        </label>
+        <label>
+          Topic
+          <select name="topic" required>
+            <option value="Support">Support</option>
+            <option value="Copyright removal">Copyright removal</option>
+            <option value="Privacy question">Privacy question</option>
+            <option value="Advertising">Advertising</option>
+          </select>
+        </label>
+        <label>
+          Instagram URL, if related
+          <input type="url" name="instagramUrl" placeholder="https://www.instagram.com/reel/...">
+        </label>
+        <label>
+          Message
+          <textarea name="message" rows="6" required></textarea>
+        </label>
+        <button class="primary-button" type="submit">Create email</button>
+        <p class="helper-text" id="contactStatus">Form fill karke Create email dabayein.</p>
+      </form>
       <h2>Before You Contact</h2>
       <p>Please include the Instagram URL, the issue you are seeing, and your browser/device details if you need technical support.</p>
       <h2>Copyright Requests</h2>
@@ -44,10 +75,12 @@
       </div>
       <nav class="footer-links" aria-label="Footer navigation">
         <a href="privacy.html">Privacy Policy</a>
+        <a href="about.html">About</a>
         <a href="terms.html">Terms</a>
         <a href="dmca.html">DMCA</a>
         <a href="contact.html">Contact</a>
       </nav>
     </footer>
+    <script src="contact.js"></script>
   </body>
 </html>

@@ -23,6 +23,10 @@ function hasRealAdSenseClient() {
   return /^ca-pub-\d{10,}$/.test(ADSENSE_CLIENT);
 }
 
+function hasRealAdSlot(slot) {
+  return /^\d{10,}$/.test(String(slot)) && !/^([1-4])\1{9}$/.test(String(slot));
+}
+
 function loadAdSense() {
   const script = document.createElement("script");
   script.async = true;
@@ -33,7 +37,7 @@ function loadAdSense() {
 
 function renderAd(slotElement) {
   const unit = AD_UNITS[slotElement.dataset.adSlot];
-  if (!unit || !hasRealAdSenseClient()) return;
+  if (!unit || !hasRealAdSenseClient() || !hasRealAdSlot(unit.slot)) return;
 
   slotElement.textContent = "";
   const ad = document.createElement("ins");

@@ -35,18 +35,23 @@ IG_PROVIDER_URL_PARAM=url
 
 The site now includes ad placements on the homepage, legal pages for ad network review, and dynamic `/ads.txt` support.
 
-After your AdSense account is approved, add these Render environment variables:
+The current AdSense client is already set to:
 
 ```txt
-ADSENSE_CLIENT=ca-pub-your_google_client_id
-ADSENSE_PUBLISHER_ID=pub-your_google_publisher_id
+ADSENSE_CLIENT=ca-pub-3466103859143604
+ADSENSE_PUBLISHER_ID=pub-3466103859143604
+```
+
+After your AdSense account creates display ad units, add these Render environment variables:
+
+```txt
 ADSENSE_SLOT_TOP=your_top_ad_unit_slot
 ADSENSE_SLOT_AFTER_DOWNLOAD=your_after_download_ad_unit_slot
 ADSENSE_SLOT_BEFORE_FAQ=your_before_faq_ad_unit_slot
 ADSENSE_SLOT_BOTTOM=your_mobile_bottom_ad_unit_slot
 ```
 
-Until real values are added, the page shows clean ad placeholders and does not load Google ad scripts.
+Until real slot IDs are added, the page shows clean ad placeholders and can still use AdSense Auto Ads.
 
 ## Render Deploy
 

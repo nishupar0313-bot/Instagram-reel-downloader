@@ -14,6 +14,8 @@ const mimeTypes = {
   ".css": "text/css; charset=utf-8",
   ".js": "text/javascript; charset=utf-8",
   ".json": "application/json; charset=utf-8",
+  ".txt": "text/plain; charset=utf-8",
+  ".xml": "application/xml; charset=utf-8",
   ".svg": "image/svg+xml; charset=utf-8",
   ".png": "image/png",
   ".jpg": "image/jpeg",
@@ -145,12 +147,12 @@ function getAdConfig() {
       process.env.ADSENSE_CLIENT ||
       process.env.GOOGLE_ADSENSE_CLIENT ||
       config.adsenseClient ||
-      "ca-pub-XXXXXXXXXXXXXXXX",
+      "ca-pub-3466103859143604",
     publisher:
       process.env.ADSENSE_PUBLISHER_ID ||
       process.env.GOOGLE_ADSENSE_PUBLISHER_ID ||
       config.adsensePublisherId ||
-      "",
+      "pub-3466103859143604",
     slots: {
       "top-banner": {
         format: "auto",
@@ -174,10 +176,11 @@ function getAdConfig() {
 
 function handleAdConfig(req, res) {
   const adConfig = getAdConfig();
+  const contactEmail = process.env.CONTACT_EMAIL || config.contactEmail || "contact@reelagp.onrender.com";
   sendJavaScript(
     res,
     200,
-    `window.REELAGP_ADSENSE_CLIENT=${JSON.stringify(adConfig.client)};\nwindow.REELAGP_AD_UNITS=${JSON.stringify(adConfig.slots)};\n`
+    `window.REELAGP_ADSENSE_CLIENT=${JSON.stringify(adConfig.client)};\nwindow.REELAGP_AD_UNITS=${JSON.stringify(adConfig.slots)};\nwindow.REELAGP_CONTACT_EMAIL=${JSON.stringify(contactEmail)};\n`
   );
 }
 
