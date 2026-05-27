@@ -2,6 +2,7 @@ node_modules/
 config.json
 .env
 *.log
+*.zip
 server.out.log
 server.err.log
 Desktop.ini
