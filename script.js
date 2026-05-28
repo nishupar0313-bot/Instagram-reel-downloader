@@ -12,6 +12,7 @@ const pasteButton = document.querySelector("#pasteButton");
 const tabs = [...document.querySelectorAll(".mode-tab")];
 
 let selectedMode = "reel";
+let lastSubmittedUrl = "";
 
 const modeLabels = {
   reel: "Reel",
@@ -65,6 +66,7 @@ form.addEventListener("submit", async (event) => {
   event.preventDefault();
   const url = input.value.trim();
   const quality = new FormData(form).get("quality");
+  lastSubmittedUrl = url;
 
   if (!isInstagramUrl(url)) {
     setStatus("Valid Instagram link paste karo, example: https://www.instagram.com/reel/...", true);
@@ -96,9 +98,21 @@ form.addEventListener("submit", async (event) => {
       title: `${modeLabels[selectedMode]} download not ready`,
       meta: error.message || `Real ${quality.toUpperCase()} download ke liye backend API configure karein.`,
       href: "#",
-      fallbackUrl: "https://warpdl.io/"
+      fallbackUrl: "https://sssig.pro/"
     });
     setStatus(error.message || "Real download ke liye backend API connect karein.", true);
+  }
+});
+
+backupLink.addEventListener("click", async () => {
+  const url = lastSubmittedUrl || input.value.trim();
+  if (!url || !navigator.clipboard) return;
+
+  try {
+    await navigator.clipboard.writeText(url);
+    setStatus("Instagram link copied. Free backup page me paste karke Download dabayein.");
+  } catch {
+    setStatus("Free backup page open hoga. Instagram link manually paste karein.");
   }
 });
 
