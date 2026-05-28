@@ -124,11 +124,19 @@ function getProviderConfig() {
 
 function getBackupProviderConfig(index) {
   const prefix = `IG_PROVIDER_${index}_`;
+  const primary = getProviderConfig();
+  const defaults = index === 2
+    ? {
+        url: "https://instagram-reels-downloader2.p.rapidapi.com/.netlify/functions/api/getLink",
+        host: "instagram-reels-downloader2.p.rapidapi.com"
+      }
+    : {};
+
   return {
     name: `backup-${index}`,
-    url: process.env[`${prefix}URL`],
-    apiKey: process.env[`${prefix}KEY`],
-    host: process.env[`${prefix}HOST`],
+    url: process.env[`${prefix}URL`] || defaults.url,
+    apiKey: process.env[`${prefix}KEY`] || primary.apiKey,
+    host: process.env[`${prefix}HOST`] || defaults.host,
     method: process.env[`${prefix}METHOD`] || "GET",
     requestStyle: process.env[`${prefix}REQUEST_STYLE`] || "query",
     urlParam: process.env[`${prefix}URL_PARAM`] || "url"
@@ -321,6 +329,10 @@ async function resolveWithProvider({ parsed, requestedType, quality }) {
 }
 
 function pickDownloadUrl(data, sourceUrl, quality) {
+  if (typeof data === "string" && /^https?:\/\//i.test(data)) {
+    return data;
+  }
+
   const mediaLists = [
     data.medias,
     data.media,
@@ -344,14 +356,27 @@ function pickDownloadUrl(data, sourceUrl, quality) {
     fallbackMedia?.url ||
     fallbackMedia?.downloadUrl ||
     data.downloadUrl ||
+    data.url ||
+    data.link ||
+    data.downloadLink ||
     data.mediaUrl ||
     data.videoUrl ||
+    data.video ||
     data.video_url ||
     data.download_url ||
+    data.download_link ||
+    data.data?.url ||
+    data.data?.link ||
+    data.data?.downloadLink ||
     data.data?.downloadUrl ||
     data.data?.mediaUrl ||
     data.data?.videoUrl ||
+    data.data?.video ||
     data.data?.video_url ||
+    data.data?.download_link ||
+    data.result?.url ||
+    data.result?.link ||
+    data.result?.downloadLink ||
     data.result?.downloadUrl;
 
   if (!candidate || candidate === sourceUrl || /(^|\.)instagram\.com\//i.test(candidate)) {
